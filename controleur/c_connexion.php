@@ -1,8 +1,10 @@
 <?php
 
-if (!isset($_POST['id']) && !isset($_POST['mdp'])) // Si aucune tentative de connexion n'a été faite : cas par défaut
-    include('vue/v_pageConnexion.php');
-else { // Si une tentative de connexion a été faite : traitement de la connexion
-    $id = $_POST['id'] ;
-    $mdp = $_POST['mdp'] ;
-}
+    include('vue/v_formulaireConnexion.php');
+    if (isset($_POST['id']) && isset($_POST['mdp'])) { // Si une tentative de connexion a été faite : traitement de la connexion
+        $collaborateur = $pdo->getCollaborateur($_POST['id']) ;
+        $collaborateur["tra_role"] = $pdo->getTravailler($collaborateur["vis_matricule"]["tra_role"]) ;
+        connexion($collaborateur, $_POST['mdp']);
+    }
+
+?>

@@ -28,7 +28,24 @@ class connexionPDO
         connexionPDO::$monPdo = null;
     }
 
-    public function getHash($id) {
-        $requete = connexionPDO::$monPdo->prepare("SELECT ") ;
+    public function getCollaborateur($vis_matricule) {
+        $requete = connexionPDO::$monPdo->prepare("SELECT * FROM collaborateur WHERE vis_matricule = ?") ;
+        $requete->execute(array($vis_matricule)) ;
+        $collaborateur = $requete->fetch() ;
+        return $collaborateur ;
+    }
+
+    public function getTravailler($vis_matricule) {
+        $requete = connexionPDO::$monPdo->prepare("SELECT * FROM travailler WHERE vis_matricule = ?") ;
+        $requete->execute(array($vis_matricule)) ;
+        $travailler = $requete->fetch() ;
+        return $travailler ;
+    }
+
+    public function getRegion($reg_code) {
+        $requete = connexionPDO::$monPdo->prepare("SELECT * FROM region WHERE vis_matricule = ?") ;
+        $requete->execute(array($reg_code)) ;
+        $travailler = $requete->fetch() ;
+        return $travailler ;
     }
 }
